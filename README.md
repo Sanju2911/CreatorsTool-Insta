@@ -1,10 +1,6 @@
-# Documentation repository
+# Creator's Tool (Insta)
 
-This private repository contains reviewed project documentation, screenshots with identifying details masked, and the final development SQL schema. Application source and account sessions are kept in the local application checkout. Setup and architecture guides refer to that checkout.
-
----
-
-# InstaManager — Content Creation Workspace
+The full application source, backend, build configuration, scripts, documentation, original masked screenshots, and final SQL schema are included here. Personal account fixtures, saved sessions, Supabase connection values, and preset administrator credentials are omitted from this public distribution. Configure your own development services before use.
 
 An Instagram content planning workspace for creators and teams, previously documented as InstaCreator OS. Organize account workspaces, collect references, draft reel scripts, and sketch storyboards in one interface.
 
@@ -63,7 +59,7 @@ See the [full screenshot gallery](docs/SCREENSHOTS.md) for all nine images, incl
 
 Include [`supabase/schema.sql`](supabase/schema.sql) on GitHub. It contains all 13 tables, compatibility migrations, policies, Realtime setup, and auth-profile synchronization, with no personal account records or credential seed. The [schema guide](supabase/README.md) explains setup and its development-only access policies. This file was prepared locally and has not been applied to the live database.
 
-## Documentation
+## demo-shortcode
 
 | Guide | Contents |
 | --- | --- |
@@ -71,10 +67,10 @@ Include [`supabase/schema.sql`](supabase/schema.sql) on GitHub. It contains all 
 | [Architecture](docs/ARCHITECTURE.md) | Components, data flow, storage, schema, limitations |
 | [User guide](docs/USER_GUIDE.md) | Account, reference, script, and storyboard workflows |
 | [Backend API](docs/API.md) | HTTP routes and browser stream protocol |
-| [Screenshot gallery](docs/SCREENSHOTS.md) | GitHub-ready PNGs and capture command |
+| [Screenshot gallery](docs/SCREENSHOTS.md) | Original masked screenshots and capture guidance |
 | [GitHub preparation](docs/GITHUB.md) | Files to include, exclusions, verification, upload steps |
 
-## Development commands
+## demo-shortcode commands
 
 | Command | Purpose |
 | --- | --- |
@@ -90,11 +86,10 @@ There is no `npm test` script. Existing `scripts/test-*.js` files are manual int
 
 ## Verification
 
-Documentation and screenshots were prepared on **14 October 2026**:
+demo-shortcode and screenshots were prepared on **14 October 2026**:
 
 - Production build succeeded, with Vite's warning about a JavaScript chunk exceeding 500 kB.
 - Final direct Oxlint invocation completed with **0 errors and 135 warnings** after local browser/test artifacts were excluded. `npm run lint` fails in this Windows workspace because the npm executable wrapper mishandles `&` in its directory name; the [setup guide](docs/SETUP.md#troubleshooting) includes a workaround.
 - The final gallery uses the user-provided signed-in session and actual profile/post retrieval. It shows current empty creative libraries and unsaved editor states. Screenshots do not validate cloud writes or the final SQL execution.
 
 No license file is currently included. Choose a license before presenting the project as open source.
-

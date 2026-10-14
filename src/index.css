@@ -1,0 +1,552 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ─── Light Mode Tokens (Default) ─────────────────────────── */
+:root {
+  /* Background */
+  --bg-main: #f4f6fa;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-card: #ffffff;
+  --bg-input: #ffffff;
+
+  /* Borders */
+  --border-subtle: #e5e9f0;
+  --border-hover: #c8d0df;
+  --border-focus: #e1306c;
+
+  /* Text */
+  --text-primary: #0d1117;
+  --text-secondary: #485569;
+  --text-muted: #8899aa;
+
+  /* Brand */
+  --brand-primary: #e1306c;
+  --brand-gradient: linear-gradient(135deg, #e1306c 0%, #fd1d1d 50%, #f77737 100%);
+  --brand-btn-hover: #c41f5a;
+  --brand-glow: 0 0 16px rgba(225, 48, 108, 0.18);
+
+  /* Accent Colors */
+  --accent-blue: #3b82f6;
+  --accent-purple: #8b5cf6;
+  --accent-green: #10b981;
+  --accent-amber: #f59e0b;
+
+  /* Shadows - Clean & Subtle */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.14);
+
+  /* Typography */
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Border Radius */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Animation */
+  --transition-fast: 0.12s ease;
+  --transition-base: 0.2s ease;
+  --transition-slow: 0.35s ease;
+}
+
+/* ─── Dark Mode Tokens (STRICT: NO ILLUMINATION OBJECTS / AI LOOKING BUTTONS) ─ */
+[data-theme='dark'] {
+  /* Matte charcoal backgrounds */
+  --bg-main: #0c0e12;
+  --bg-surface: #141720;
+  --bg-surface-elevated: #1a1e28;
+  --bg-card: #141720;
+  --bg-input: #10131a;
+
+  /* Crisp matte borders (zero neon or glowing lines) */
+  --border-subtle: #222836;
+  --border-hover: #2e3648;
+  --border-focus: #e1306c;
+
+  /* High-contrast crisp typography */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Refined brand crimson / gradient - NO AI GLOW */
+  --brand-primary: #e1306c;
+  --brand-gradient: linear-gradient(135deg, #e1306c 0%, #db2757 50%, #ea580c 100%);
+  --brand-btn-hover: #cb2458;
+  --brand-glow: none !important; /* STRICT: ZERO ILLUMINATION GLOW */
+
+  /* Matte Accents */
+  --accent-blue: #3b82f6;
+  --accent-purple: #8b5cf6;
+  --accent-green: #10b981;
+  --accent-amber: #f59e0b;
+
+  /* Matte Elevation Shadows (pure darkness, no neon drop-shadows) */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.55), 0 2px 4px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.65), 0 4px 8px rgba(0, 0, 0, 0.45);
+  --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.75);
+}
+
+/* ─── Global Reset ─────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light dark;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* ─── Scrollbars ─────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d0d9e6; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #a8b5c8; }
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb { background: #262e3e; }
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover { background: #354056; }
+
+/* ─── Cards ──────────────────────────────── */
+.clean-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  color: var(--text-primary);
+  transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+
+.clean-card-hover {
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.clean-card-hover:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* ─── Buttons (Matte, High-End Tactile) ──── */
+.clean-btn-primary {
+  background: var(--brand-gradient);
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 9px 18px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  transition: opacity var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.clean-btn-primary:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.clean-btn-primary:active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+[data-theme='dark'] .clean-btn-primary {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme='dark'] .clean-btn-primary:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+.clean-btn-secondary {
+  background: var(--bg-surface-elevated);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 0.875rem;
+  transition: background var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  white-space: nowrap;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.clean-btn-secondary:hover {
+  background: var(--bg-surface);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-xs);
+}
+
+.clean-icon-btn {
+  background: var(--bg-surface-elevated);
+  border: 1.5px solid var(--border-subtle);
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  padding: 7px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  line-height: 1;
+}
+
+.clean-icon-btn:hover {
+  background: var(--border-subtle);
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-xs);
+}
+
+.clean-icon-btn.active {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.35);
+  color: #3b82f6;
+}
+
+/* ─── Form Inputs ─────────────────────────── */
+.clean-input {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  line-height: 1.5;
+}
+
+.clean-input:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 2px rgba(225, 48, 108, 0.15);
+}
+
+.clean-input::placeholder {
+  color: var(--text-muted);
+}
+
+.clean-textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* ─── Badges (Matte Finishes) ─────────────── */
+.clean-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.clean-badge-pink {
+  background: #fdf2f8;
+  color: #be185d;
+  border: 1px solid #fbcfe8;
+}
+
+.clean-badge-gray {
+  background: #f4f6fa;
+  color: #56667a;
+  border: 1px solid #e5e9f0;
+}
+
+.clean-badge-green {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.clean-badge-blue {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.clean-badge-purple {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
+}
+
+.clean-badge-amber {
+  background: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+[data-theme='dark'] .clean-badge-pink {
+  background: rgba(225, 48, 108, 0.12);
+  color: #fb7185;
+  border-color: rgba(225, 48, 108, 0.25);
+}
+
+[data-theme='dark'] .clean-badge-gray {
+  background: rgba(148, 163, 184, 0.12);
+  color: #cbd5e1;
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+[data-theme='dark'] .clean-badge-green {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+[data-theme='dark'] .clean-badge-blue {
+  background: rgba(59, 130, 246, 0.12);
+  color: #60a5fa;
+  border-color: rgba(59, 130, 246, 0.25);
+}
+
+[data-theme='dark'] .clean-badge-purple {
+  background: rgba(139, 92, 246, 0.12);
+  color: #a78bfa;
+  border-color: rgba(139, 92, 246, 0.25);
+}
+
+[data-theme='dark'] .clean-badge-amber {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+/* ─── Storyboard Canvas ───────────────────── */
+.paint-canvas-container {
+  position: relative;
+  background: #ffffff;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  user-select: none;
+  cursor: crosshair;
+}
+
+[data-theme='dark'] .paint-canvas-container {
+  border-color: var(--border-subtle);
+  background: #ffffff; /* Canvas drawing sheet stays white for natural sketching */
+}
+
+.paint-toolbar-ribbon {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+}
+
+.paint-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-surface-elevated);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.color-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1.5px solid var(--border-subtle);
+  transition: transform var(--transition-fast);
+}
+
+.color-swatch:hover { transform: scale(1.15); }
+.color-swatch.active {
+  border-color: var(--brand-primary);
+  outline: 2px solid var(--brand-primary);
+  transform: scale(1.1);
+}
+
+/* ─── Animations ──────────────────────────── */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in { animation: fadeIn 0.25s ease; }
+.animate-fade-in-up { animation: fadeInUp 0.3s ease; }
+
+/* ─── App Main Content Area ───────────────── */
+.app-main-content {
+  padding: 24px 24px;
+  transition: padding var(--transition-base);
+}
+
+/* ─── DARK MODE RESILIENT OVERRIDES ───────── */
+[data-theme='dark'] {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .clean-card {
+  background: var(--bg-surface);
+  border-color: var(--border-subtle);
+}
+
+[data-theme='dark'] .top-navbar {
+  background: rgba(20, 23, 32, 0.95);
+  border-bottom-color: var(--border-subtle);
+}
+
+/* ─── MOBILE / PHONE VERSION ENHANCEMENTS ─────────────────────
+   Requirements:
+   1. In phone version: NO embedded browser frame thing.
+   2. Clean, elegant, simple layout.
+   3. Touch-friendly components with no cramped overflow.
+────────────────────────────────────────────────────────────── */
+@media (max-width: 868px) {
+  /* Completely hide the embedded browser box on phone */
+  .desktop-browser-box {
+    display: none !important;
+  }
+
+  /* Hide the redundant desktop jump/scroll hint on phone */
+  .desktop-scroll-hint {
+    display: none !important;
+  }
+
+  /* Single-column, clean mobile account hero */
+  .top-dashboard-section {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
+
+  /* Main wrapper padding: use full phone width elegantly */
+  .app-main-content {
+    padding: 12px 10px !important;
+  }
+
+  /* Top Navbar compact on mobile */
+  .top-navbar {
+    padding: 0 12px !important;
+    height: 54px !important;
+  }
+
+  /* Studios Tab Switcher Ribbon */
+  .studios-tab-ribbon {
+    top: 54px !important;
+    padding: 6px 0 !important;
+    margin-bottom: 14px !important;
+  }
+
+  .studios-tab-ribbon > div {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 3px !important;
+  }
+
+  .studios-tab-ribbon > div::-webkit-scrollbar {
+    display: none;
+  }
+
+  .workflow-tab-pill {
+    padding: 8px 10px !important;
+    font-size: 0.8rem !important;
+    gap: 5px !important;
+    flex-shrink: 0;
+  }
+
+  /* General mobile touch targets */
+  button {
+    touch-action: manipulation;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Hide the word 'InstaManager' to keep the phone navbar clean */
+  .navbar-brand-text {
+    display: none !important;
+  }
+
+  .navbar-divider {
+    display: none !important;
+  }
+
+  .navbar-profile-name {
+    display: none !important;
+  }
+
+  .navbar-profile-settings-icon {
+    display: none !important;
+  }
+
+  .navbar-add-btn-text {
+    display: none !important;
+  }
+
+  .navbar-project-btn {
+    max-width: 130px !important;
+  }
+}
+
+@media (max-width: 440px) {
+  /* Compact theme toggle pill on narrow phones */
+  .navbar-theme-label {
+    display: none !important;
+  }
+
+  #theme-mode-toggle {
+    padding: 4px 7px !important;
+  }
+}
